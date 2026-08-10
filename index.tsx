@@ -2,7 +2,7 @@ import {useStore} from '@nanostores/solid';
 import {createRouter} from '@nanostores/router';
 import {render} from 'solid-js/web';
 import {Match, Show, Switch} from 'solid-js';
-import {createQuery, QueryClient, QueryClientProvider, queryOptions} from '@tanstack/solid-query';
+import {createQueries, createQuery, QueryClient, QueryClientProvider, queryOptions} from '@tanstack/solid-query';
 
 const queryClient = new QueryClient();
 
@@ -34,26 +34,28 @@ const queryPageOptions = queryOptions({
 	staleTime: 5000
 });
 
-export const $router = createRouter({
+const routes = {
 	home: '/',
 	about: '/about'
-});
+};
+
+export const $router = createRouter(routes);
 
 const routeQueries = {
-	'home': queryPageOptions,
-	'about': queryPageOptions
+	'home': [queryPageOptions],
+	'about': [queryPageOptions]
 };
 
 function App () {
 
 	const appQuery = createQuery(() => queryAppOptions);
 	const page = useStore($router);
-	const pageQuery = createQuery(() => {
+	const pageQueries = createQueries(() => {
 		const currentRoute = page()?.route as keyof typeof routeQueries;
-		return routeQueries[currentRoute];
+		return {queries: routeQueries[currentRoute]};
 	});
-
-	const readyToRenderApp = () => page() && appQuery.isSuccess && pageQuery.isSuccess;
+	const pageRoute = () => page()?.route as keyof typeof routeQueries;
+	const readyToRenderApp = () => page() && appQuery.isSuccess && pageQueries.every(q => q.isSuccess);
 
 	return (
 		<div>
@@ -63,10 +65,10 @@ function App () {
 					<a href="/about">About</a>
 				</nav>
 				<Switch>
-					<Match when={page()?.route === 'home'}>
+					<Match when={pageRoute() === 'home'}>
 						<Home/>
 					</Match>
-					<Match when={page()?.route === 'about'}>
+					<Match when={pageRoute() === 'about'}>
 						<About/>
 					</Match>
 				</Switch>
