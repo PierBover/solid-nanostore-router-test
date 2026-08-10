@@ -1,0 +1,31 @@
+{
+  "name": "solid-nanostore-router-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PierBover/solid-nanostore-router-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/PierBover/solid-nanostore-router-test/issues"
+  },
+  "homepage": "https://github.com/PierBover/solid-nanostore-router-test#readme",
+  "dependencies": {
+    "@nanostores/router": "1.1.0",
+    "@nanostores/solid": "1.1.1",
+    "@tanstack/solid-query": "5.101.4",
+    "solid-js": "1.9.14"
+  },
+  "devDependencies": {
+    "vite": "8.2.1",
+    "vite-plugin-solid": "2.11.14"
+  }
+}

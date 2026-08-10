@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style>
+		@keyframes fade-in {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+
+		.fade-in {
+			animation-name: fade-in;
+			animation-iteration-count: 1;
+			animation-duration: .25s;
+			animation-fill-mode: forwards;
+		}
+
+		.loading {
+			opacity: .5;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="module" src="./index.tsx"></script>
+</body>
+</html>
